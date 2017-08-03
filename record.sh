@@ -10,6 +10,7 @@ do
  screencapture -x $tmpdir/$n_screen
  echo "Sending to Google Cloud Storage ..."
  gsutil cp $tmpdir/$n_image gs://talksentiment
+ gsutil cp $tmpdir/$n_screen gs://talksentimentscreens
  echo "Waiting for the next Status ..."
  sleep 5
 done
