@@ -55,28 +55,22 @@ exports.newSentimentStatus = function (event, callback) {
       });
 
       const bigquery = BigQuery({
-        projectId: "bdoctors-169610"
+        projectId: "boosterme-151110"
       })
 
-      var Dataset = bigquery.dataset('talksentiment');
+      var Dataset = bigquery.dataset('realtimesentiment');
       var Table = Dataset.table('samples');
 
       console.log(`Recording DATA`);
       rows = [{'when': ts, 'topic': topic, 'faces': faces.length, 'joy': tjoy, 'anger':tanger, 'sorrow':tsorrow, 'surprise':tsurprise}];
       console.log('data:' + JSON.stringify(rows));
       bigquery
-        .dataset("talksentiment")
+        .dataset("realtimesentiment")
         .table("samples")
         .insert(rows)
         .then((data) => {
           console.log('Inserted:' + JSON.stringify(data));
           rows.forEach((row) => console.log(row));
-          /*
-          if (insertErrors && insertErrors.length > 0) {
-            console.log('---> Insert errors:');
-            insertErrors.forEach((err) => console.error(err));
-          }
-          */
         })
         .catch((err) => {
           console.error('ERROR:', err);
